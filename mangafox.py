@@ -18,7 +18,7 @@ def makeFileName(browser, page):
 def downloadPage(browser, page):
     imageElement = browser.find_element_by_class_name('reader-main-img')
     imageUrl = imageElement.get_attribute('src')
-    while imageUrl == 'http://static.fanfox.net/v2020202101/mangafox/images/loading.gif':
+    while imageUrl.endswith('loading.gif'):
         imageElement = browser.find_element_by_class_name('reader-main-img')
         imageUrl = imageElement.get_attribute('src')
     res = requests.get(imageUrl)
@@ -45,6 +45,8 @@ def findManga():
     return [url, title]
 
 
+
+## Version 1 - Mangafox started blocking the next button with ads
 manga = findManga()
 url = manga[0]
 title = manga[1]
@@ -69,11 +71,7 @@ if confirm == 'yes':
                 page = 1
                 downloadPage(browser, page)
             except:
-                try:
-                    ad = browser.find_element_by_class_name('sitemaji-close-btn')
-                    ad.click()
-                except:
-                    getMore = False
+                getMore = False
     browser.quit()
 else:
     print('Goodbye')
