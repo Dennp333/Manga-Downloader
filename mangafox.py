@@ -45,8 +45,6 @@ def findManga():
     return [url, title]
 
 
-
-## Version 1 - Mangafox started blocking the next button with ads
 manga = findManga()
 url = manga[0]
 title = manga[1]
@@ -71,7 +69,11 @@ if confirm == 'yes':
                 page = 1
                 downloadPage(browser, page)
             except:
-                getMore = False
+                try:
+                    ad = browser.find_element_by_class_name('sitemaji-close-btn')
+                    ad.click()
+                except:
+                    getMore = False
     browser.quit()
 else:
     print('Goodbye')
