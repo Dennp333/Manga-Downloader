@@ -38,8 +38,8 @@ def findManga():
     searchBar.send_keys(Keys.ENTER)
     mangaLink = browser.find_element_by_partial_link_text(choice)
     mangaLink.click()
-    chapter1 = browser.find_element_by_partial_link_text('Ch.001')
-    url = chapter1.get_attribute('href')
+    chapter = browser.find_element_by_partial_link_text('Read Now')
+    url = chapter.get_attribute('href')
     title = browser.find_element_by_class_name('detail-info-right-title-font').text
     browser.quit()
     return [url, title]
